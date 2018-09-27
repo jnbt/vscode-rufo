@@ -14,7 +14,7 @@ Press `F1`, type `ext install` then search for `vscode-rufo`.
 Before using this plugin, you must ensure that `rufo`, version 0.4.0 or
 higher, is installed on your system. To install `rufo`, do the following:
 
-1.  Install [ruby](https://www.ruby-lang.org/).
+1.  Install [Ruby](https://www.ruby-lang.org/).
 
 2.  Install [Rufo](https://github.com/ruby-formatter/rufo#installation) by typing the
     following in a terminal:
@@ -31,11 +31,12 @@ for more information below.
 You can configure vscode-rufo in your workspace or user settings:
 
 ```js
-"ruby.rufo": {
-  "exe": "rufo",       // can be an absolute path
-  "useBundler": false,
+"rufo.exe": "rufo",  // can be an absolute path
+"rufo.useBundler": false,
 }
 ```
+
+*Attention:* Restart Visual Studio Code after you have made changes to the settings.
 
 ### Using RVM
 
@@ -45,9 +46,7 @@ might not be in your current PATH, you need to change the executable
 to the RVM-wrapped one:
 
 ```js
-"ruby.rufo": {
-  "exe": "/Users/You/.rvm/gems/ruby-2.3.6/wrappers/rufo"
-}
+"rufo.exe": "/Users/You/.rvm/gems/ruby-2.3.6/wrappers/rufo"
 ```
 
 ### Using `rbenv`
@@ -58,9 +57,7 @@ will continue to work after you upgrade your Ruby:
 
 
 ```js
-"ruby.rufo": {
-  "exe": "/Users/You/.rbenv/shims/rufo"
-}
+"rufo.exe": "/Users/You/.rbenv/shims/rufo"
 ```
 
 ## Develop

@@ -63,6 +63,21 @@ will continue to work after you upgrade your Ruby:
 }
 ```
 
+## Develop
+
+* Use Visual Studio Code to develop this extension
+* Press `F5` to open a new window with the extension loaded
+* Open a Ruby file or paste some Ruby code into the window
+* Open the command palette by pressing (`Ctrl+Shift+P` or `Cmd+Shift+P` on Mac)
+* Choose either "Format Document" for "Format Selection".
+* Find output from the extension in the debug console.
+
+## Testing
+
+* Open the debug viewlet (`Ctrl+Shift+D` or `Cmd+Shift+D` on Mac) and from the launch configuration dropdown pick `Launch Tests`
+* Press `F5` to run the tests in a new window with your extension loaded
+* See the output of the test result in the debug console
+
 ## Contributing
 
 1. [Fork it](https://github.com/jnbt/vscode-rufo/fork)

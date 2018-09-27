@@ -35,6 +35,9 @@ export default class EditProvider implements vscode.DocumentFormattingEditProvid
     return this.rufo.format(input, fileName)
       .then(
         result => {
+          if(this.shouldRemoveTrailingNewline(document, range, result)) {
+            result = result.slice(0, -1);
+          }
           return [new vscode.TextEdit(document.validateRange(range), result)];
         },
         err => {
@@ -42,5 +45,9 @@ export default class EditProvider implements vscode.DocumentFormattingEditProvid
           return [];
         }
       );
+  }
+
+  private shouldRemoveTrailingNewline(document: vscode.TextDocument, range: vscode.Range, result: string) {
+    return range.end.line !== document.lineCount - 1 && result.slice(-1) === '\n';
   }
 }

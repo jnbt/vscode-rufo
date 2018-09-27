@@ -8,20 +8,30 @@
         "vscode": "^1.27.0"
     },
     "categories": [
-        "Other"
+        "Formatters"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onLanguage:ruby"
     ],
-    "main": "./out/extension",
+    "preview": true,
     "contributes": {
-        "commands": [
-            {
-                "command": "extension.sayHello",
-                "title": "Hello World"
+        "configuration": {
+            "title": "Rufo",
+            "properties": {
+                "rufo.exe": {
+                    "type": "string",
+                    "default": "rufo",
+                    "description": "Path to invoke rufo"
+                },
+                "rufo.useBundler": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether Rufo should be started via Bundler"
+                }
             }
-        ]
+        }
     },
+    "main": "./out/extension",
     "scripts": {
         "vscode:prepublish": "npm run compile",
         "compile": "tsc -p ./",

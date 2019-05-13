@@ -7,7 +7,7 @@ or [rbenv](https://github.com/rbenv/rbenv).
 
 ## Installation
 
-Press `F1`, type `ext install` then search for `vscode-rufo`.
+Press `F1`, type `ext install` then search for `jnbt.vscode-rufo`.
 
 ### `rufo` installation
 
@@ -28,11 +28,17 @@ for more information below.
 
 ## Settings
 
-You can configure vscode-rufo in your workspace or user settings:
+You can configure vscode-rufo in your workspace or user settings. You can either
+
+a) Open VS Code settings menu, select "Extensions" and scroll down to "Rufo"
+
+b) Manually adjust your settings via your `settings.json` file:
 
 ```js
-"rufo.exe": "rufo",  // can be an absolute path
-"rufo.useBundler": false,
+{
+  ...
+  "rufo.exe": "rufo",  // can be an absolute path
+  "rufo.useBundler": false,
 }
 ```
 

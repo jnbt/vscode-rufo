@@ -11,7 +11,7 @@ Press `F1`, type `ext install` then search for `jnbt.vscode-rufo`.
 
 ### `rufo` installation
 
-Before using this plugin, you must ensure that `rufo`, version 0.4.0 or
+Before using this plugin, you must ensure that `rufo`, version 0.10.0 or
 higher, is installed on your system. To install `rufo`, do the following:
 
 1.  Install [Ruby](https://www.ruby-lang.org/).

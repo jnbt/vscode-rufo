@@ -12,9 +12,18 @@ const DEFAULT_OPTIONS: RufoOptions = {
 };
 
 export default class Rufo {
-  public test(): Promise<any> {
+  public test(): Promise<void> {
     return new Promise((resolve, reject) => {
       const rufo = this.spawn(['-v']);
+
+      if (rufo.stderr === null) {
+        const msg = "Couldn't initialize STDERR";
+        console.warn(msg);
+        vscode.window.showErrorMessage(msg);
+        reject(msg);
+        return;
+      }
+
       rufo.on('error', err => {
         console.warn(err);
 
@@ -50,6 +59,15 @@ export default class Rufo {
       }
 
       const rufo = this.spawn(args);
+
+      if (rufo.stdin === null || rufo.stdout === null) {
+        const msg = "Couldn't initialize STDIN or STDOUT";
+        console.warn(msg);
+        vscode.window.showErrorMessage(msg);
+        reject(msg);
+        return;
+      }
+
       let result = '';
       rufo.on('error', err => {
         console.warn(err);
@@ -90,5 +108,5 @@ export default class Rufo {
     }
     const cmd = exe.shift() as string;
     return cp.spawn(cmd, exe.concat(args), spawnOpt);
-  }
+  };
 }

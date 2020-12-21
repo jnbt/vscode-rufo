@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import Rufo from "../formatter/rufo";
+import Rufo from '../../formatter/rufo';
 
 suite("Rufo Tests", () => {
   const FIXTURE = `class  NeedsChanges
@@ -27,7 +27,7 @@ end`;
 
   test("formats text via rufo", (done) => {
     const rufo = new Rufo();
-    rufo.format("echo  'a'", undefined).then((result) => {
+    rufo.format("echo  'a'", undefined).then((result: any) => {
       assert.equal('echo "a"\n', result);
       done();
     });

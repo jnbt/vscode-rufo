@@ -7,9 +7,13 @@ type RufoOptions = {
 };
 
 const DEFAULT_OPTIONS: RufoOptions = {
-  exe: "rufo",
+  exe: 'rufo',
   useBundler: false
 };
+
+function cleanUpError(message: string) {
+  return message.replace('STDIN is invalid code. ', '')
+}
 
 export default class Rufo {
   public test(): Promise<void> {
@@ -36,8 +40,7 @@ export default class Rufo {
       });
 
       rufo.stderr.on('data', data => {
-        // for debugging
-        console.log(`Rufo stderr ${data}`);
+        console.warn(`Rufo STDERR: ${data}`);
       });
 
       rufo.on('exit', code => {
@@ -60,8 +63,8 @@ export default class Rufo {
 
       const rufo = this.spawn(args);
 
-      if (rufo.stdin === null || rufo.stdout === null) {
-        const msg = "Couldn't initialize STDIN or STDOUT";
+      if (rufo.stdin === null || rufo.stdout === null || rufo.stderr === null) {
+        const msg = "Couldn't initialize STDIN, STDOUT or STDERR";
         console.warn(msg);
         vscode.window.showErrorMessage(msg);
         reject(msg);
@@ -69,6 +72,7 @@ export default class Rufo {
       }
 
       let result = '';
+      let error = '';
       rufo.on('error', err => {
         console.warn(err);
         vscode.window.showErrorMessage(`couldn't run ${this.exe} '${err.message}'`);
@@ -77,9 +81,15 @@ export default class Rufo {
       rufo.stdout.on('data', data => {
         result += data.toString();
       });
+      rufo.stderr.on('data', data => {
+        console.warn(`Rufo STDERR: ${data}`);
+        error += data.toString();
+      });
       rufo.on('exit', code => {
         if (code) {
-          vscode.window.showErrorMessage(`Rufo failed with exit code: ${code}`);
+          const cleanedError = cleanUpError(error)
+          const msg = cleanedError.length ? cleanedError : `Rufo failed with exit code: ${code}`;
+          vscode.window.showErrorMessage(msg);
           return reject();
         }
         resolve(result);

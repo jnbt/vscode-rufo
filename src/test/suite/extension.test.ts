@@ -19,6 +19,11 @@ def a_method(with_bizarre_formatting)
   non_latin = "你好"
 end
 end`;
+  const INVALID_SYNTAX = `module Arst
+  def my_func
+    puts "my_func"
+  end`;
+
   const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
   test("test detects rufo", (done) => {
@@ -43,13 +48,13 @@ end`;
         document = doc;
         return vscode.window.showTextDocument(doc);
       })
-      .then(() => wait(1500)) // we need to wait a little bit until rufo is loaded
+      .then(() => wait(1000)) // we need to wait a little bit until rufo is loaded
       .then(() => vscode.commands.executeCommand("editor.action.formatDocument"))
       .then(() => wait(500)) // wait until rufo executed
       .then(() => {
         assert.strictEqual(document.getText(), CORRECT);
       });
-  }).timeout(20000);
+  });
 
   test("formats text selection", () => {
     let document: vscode.TextDocument;
@@ -74,4 +79,19 @@ end`;
         assert.strictEqual(document.getText(), PARTIALLY);
       });
   });
+
+  test("handles invalid syntax errors", () => {
+    let document: vscode.TextDocument;
+    return vscode.workspace.openTextDocument({language: "ruby", content: INVALID_SYNTAX})
+      .then((doc) => {
+        document = doc;
+        return vscode.window.showTextDocument(doc);
+      })
+      .then(() => wait(1000)) // we need to wait a little bit until rufo is loaded
+      .then(() => vscode.commands.executeCommand("editor.action.formatDocument"))
+      .then(() => wait(500)) // wait until rufo executed
+      .then(() => {
+        assert.strictEqual(document.getText(), INVALID_SYNTAX);
+      });
+  })
 });

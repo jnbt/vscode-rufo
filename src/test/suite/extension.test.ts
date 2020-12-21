@@ -5,15 +5,18 @@ import Rufo from '../../formatter/rufo';
 suite("Rufo Tests", () => {
   const FIXTURE = `class  NeedsChanges
   def a_method( with_bizarre_formatting)
+    non_latin='你好'
   end
 end`;
   const CORRECT = `class NeedsChanges
   def a_method(with_bizarre_formatting)
+    non_latin = "你好"
   end
 end
 `;
   const PARTIALLY = `class  NeedsChanges
 def a_method(with_bizarre_formatting)
+  non_latin = "你好"
 end
 end`;
   const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -28,31 +31,27 @@ end`;
   test("formats text via rufo", (done) => {
     const rufo = new Rufo();
     rufo.format("echo  'a'", undefined).then((result: any) => {
-      assert.equal('echo "a"\n', result);
+      assert.strictEqual(result, 'echo "a"\n');
       done();
     });
   });
 
   test("formats whole documents", () => {
-    const time = "formatDocument";
     let document: vscode.TextDocument;
     return vscode.workspace.openTextDocument({language: "ruby", content: FIXTURE})
       .then((doc) => {
         document = doc;
         return vscode.window.showTextDocument(doc);
       })
-      .then(() => wait(200)) // we need to wait a little bit until rufo is loaded
-      .then(() => console.time(time))
+      .then(() => wait(1500)) // we need to wait a little bit until rufo is loaded
       .then(() => vscode.commands.executeCommand("editor.action.formatDocument"))
+      .then(() => wait(500)) // wait until rufo executed
       .then(() => {
-        console.timeEnd(time);
-        assert.equal(CORRECT, document.getText());
-      })
-      .then(() => vscode.commands.executeCommand("workbench.action.closeActiveEditor"));
-  });
+        assert.strictEqual(document.getText(), CORRECT);
+      });
+  }).timeout(20000);
 
   test("formats text selection", () => {
-    const time = "formatSelection";
     let document: vscode.TextDocument;
     let textEdit: vscode.TextEditor;
     return vscode.workspace.openTextDocument({language: "ruby", content: FIXTURE})
@@ -63,18 +62,16 @@ end`;
       .then((text) => {
         textEdit = text;
         // we need to wait a little bit until rufo is loaded
-        return wait(200);
+        return wait(1000);
       })
-      .then(() => console.time(time))
       .then(() => {
-        const selection = new vscode.Selection(1, 0, 2, 5);
+        const selection = new vscode.Selection(1, 0, 3, 5);
         textEdit.selection = selection;
         return vscode.commands.executeCommand("editor.action.formatSelection");
       })
+      .then(() => wait(500)) // wait until rufo executed
       .then(() => {
-        console.timeEnd(time);
-        assert.equal(PARTIALLY, document.getText());
-      })
-      .then(() => vscode.commands.executeCommand("workbench.action.closeActiveEditor"));
+        assert.strictEqual(document.getText(), PARTIALLY);
+      });
   });
 });

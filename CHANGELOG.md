@@ -5,6 +5,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+- ...
+
+## [0.0.4] - 2021-03-31
+
 - Move rufo path setting to application scope
 
 ## [0.0.3] - 2020-12-21

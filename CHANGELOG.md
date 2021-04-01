@@ -9,7 +9,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [0.0.4] - 2021-03-31
 
-- Move rufo path setting to application scope
+- Move rufo path setting to application scope [CVE-2021-29658] (Thanks to [@Ry0taK](https://github.com/Ry0taK) for reporting)
 
 ## [0.0.3] - 2020-12-21
 

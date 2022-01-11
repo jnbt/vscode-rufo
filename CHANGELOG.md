@@ -6,6 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 - Use workspaceFolders instead of rootPath
+- Show rufo's error output as error message
 - ...
 
 ## [0.0.4] - 2021-03-31

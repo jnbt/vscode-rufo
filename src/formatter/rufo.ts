@@ -104,7 +104,7 @@ export default class Rufo {
     const exe = this.exe;
 
     if (!spawnOpt.cwd) {
-      spawnOpt.cwd = vscode.workspace.rootPath;
+      spawnOpt.cwd = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
     }
     const cmd = exe.shift() as string;
     return cp.spawn(cmd, exe.concat(args), spawnOpt);

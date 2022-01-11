@@ -5,6 +5,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+- Use workspaceFolders instead of rootPath
 - ...
 
 ## [0.0.4] - 2021-03-31

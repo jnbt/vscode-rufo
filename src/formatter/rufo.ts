@@ -72,6 +72,12 @@ export default class Rufo {
         return;
       }
 
+      // we need to assume UTF-8, because vscode's extension API doesn't provide
+      // functionality to retrieve or set the current encoding:
+      // https://github.com/microsoft/vscode/issues/824
+      rufo.stdin.setDefaultEncoding('utf-8');
+      rufo.stdout.setEncoding('utf-8');
+
       let result = '';
       let error = '';
       rufo.on('error', err => {
@@ -117,6 +123,12 @@ export default class Rufo {
     if (!spawnOpt.cwd) {
       spawnOpt.cwd = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
     }
+
+    if (!spawnOpt.env) {
+      // also here we need to assume UTF-8 (see above)
+      spawnOpt.env = { ...process.env, LANG: "en_US.UTF-8" };
+    }
+
     const cmd = exe.shift() as string;
     return cp.spawn(cmd, exe.concat(args), spawnOpt);
   };

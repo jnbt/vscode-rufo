@@ -23,7 +23,7 @@
     },
     "publisher": "jnbt",
     "engines": {
-        "vscode": "^1.52.0"
+        "vscode": "^1.63.1"
     },
     "categories": [
         "Formatters"

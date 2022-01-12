@@ -5,11 +5,14 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+- ...
+
+## [0.0.5] - 2022-01-12
+
 - Use workspaceFolders instead of rootPath
 - Show rufo's error output as error message
 - Use UTF-8 for calling rufo (#7)
 - Update development dependencies
-- ...
 
 ## [0.0.4] - 2021-03-31
 

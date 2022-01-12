@@ -12,7 +12,7 @@ const DEFAULT_OPTIONS: RufoOptions = {
 };
 
 function cleanUpError(message: string) {
-  return message.replace('STDIN is invalid code. ', '')
+  return message.replace('STDIN is invalid code. ', '');
 }
 
 export default class Rufo {
@@ -94,7 +94,7 @@ export default class Rufo {
       });
       rufo.on('exit', code => {
         if (code) {
-          const cleanedError = cleanUpError(error)
+          const cleanedError = cleanUpError(error);
           const msg = cleanedError.length ? cleanedError : `Rufo failed with exit code: ${code}`;
           vscode.window.showErrorMessage(msg);
           return reject();
@@ -126,7 +126,7 @@ export default class Rufo {
 
     if (!spawnOpt.env) {
       // also here we need to assume UTF-8 (see above)
-      spawnOpt.env = { ...process.env, LANG: "en_US.UTF-8" };
+      spawnOpt.env = { ...process.env, LANG: "en_US.UTF-8" }; // eslint-disable-line @typescript-eslint/naming-convention
     }
 
     const cmd = exe.shift() as string;

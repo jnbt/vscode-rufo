@@ -3,11 +3,13 @@ import * as vscode from 'vscode';
 
 type RufoOptions = {
   exe: string,
+  args: string[],
   useBundler: boolean
 };
 
 const DEFAULT_OPTIONS: RufoOptions = {
   exe: "rufo",
+  args: [],
   useBundler: false
 };
 
@@ -107,8 +109,8 @@ export default class Rufo {
   }
 
   private get exe(): string[] {
-    const {exe, useBundler} = this.options;
-    return useBundler ? [`bundle exec ${exe}`] : [exe];
+    const {exe, args, useBundler} = this.options;
+    return useBundler ? [`bundle exec ${exe}`, ...args] : [exe, ...args];
   }
 
   private get options(): RufoOptions {

@@ -47,6 +47,12 @@
                     "description": "Path to invoke rufo",
                     "scope": "application"
                 },
+                "rufo.args": {
+                    "type": "array",
+                    "default": [],
+                    "description": "Additional arguments to pass to the executable",
+                    "scope": "application"
+                },
                 "rufo.useBundler": {
                     "type": "boolean",
                     "default": false,

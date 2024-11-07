@@ -26,6 +26,8 @@ higher, is installed on your system. To install `rufo`, do the following:
 If you're are using [RVM](http://rvm.io) or [rbenv](https://github.com/rbenv/rbenv), seek
 for more information below.
 
+If you are using Windows, please use the settings [below](#on-windows).
+
 ## Settings
 
 You can configure vscode-rufo in your workspace or user settings. You can either
@@ -38,11 +40,16 @@ b) Manually adjust your settings via your `settings.json` file:
 {
   ...
   "rufo.exe": "rufo",  // can be an absolute path
+  "rufo.args": [],
   "rufo.useBundler": false,
 }
 ```
 
 *Attention:* Restart Visual Studio Code after you have made changes to the settings.
+
+### *On Windows:*
+ - `"rufo.exe": "cmd"`
+ - `"rufo.args": ["/c", "rufo.bat"]`
 
 ### Using RVM
 
